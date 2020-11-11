@@ -35,4 +35,9 @@ LIMIT 10;
 SELECT count(DISTINCT(actor)) FROM casting_table;
 
 -- peliculas entre 1990 y 1999 incluidos, ordenados ascendente
-SELECT movie FROM movies_table WHERE release_year>1989 AND release_year<2000;
+SELECT movie FROM movies_table WHERE release_year>1989 AND release_year<2000
+ORDER BY movie ASC;
+
+-- listar reparto de películas lanzadas el 2001
+SELECT actor FROM casting_table INNER JOIN movies_table on
+movies_table.id=casting_table.id WHERE release_year=2001;
