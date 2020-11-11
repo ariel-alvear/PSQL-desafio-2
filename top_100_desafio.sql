@@ -41,3 +41,10 @@ ORDER BY movie ASC;
 -- listar reparto de películas lanzadas el 2001
 SELECT actor FROM casting_table INNER JOIN movies_table on
 movies_table.id=casting_table.id WHERE release_year=2001;
+
+-- listar actores de pelicula mas nueva
+SELECT actor FROM casting_table INNER JOIN movies_table on
+movies_table.id=casting_table.id WHERE release_year=(
+    SELECT MAX(release_year) 
+    FROM movies_table
+);
