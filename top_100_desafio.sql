@@ -3,7 +3,7 @@ CREATE DATABASE movies;
 CREATE TABLE movies_table(
     id INT,
     movie VARCHAR(200),
-    release_year VARCHAR(4),
+    release_year INT,
     movie_director VARCHAR(50),
     PRIMARY KEY (id)
 );
@@ -30,3 +30,9 @@ movies_table.id=casting_table.id WHERE actor='Harrison Ford';
 SELECT movie_director, count(*)                                                   FROM movies_table GROUP BY movie_director
 ORDER BY count DESC
 LIMIT 10;
+
+-- indicaremos cuantos actores hay.
+SELECT count(DISTINCT(actor)) FROM casting_table;
+
+-- peliculas entre 1990 y 1999 incluidos, ordenados ascendente
+SELECT movie FROM movies_table WHERE release_year>1989 AND release_year<2000;
