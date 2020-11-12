@@ -27,7 +27,8 @@ SELECT * FROM movies_table INNER JOIN casting_table on
 movies_table.id=casting_table.id WHERE actor='Harrison Ford';
 
 -- listamos a los directores y cuántas películas tienen en el ranking, los ordenamos de mayor cantidad a menor, y dejamos solo 10.
-SELECT movie_director, count(*)                                                   FROM movies_table GROUP BY movie_director
+SELECT movie_director, count(*)
+FROM movies_table GROUP BY movie_director
 ORDER BY count DESC
 LIMIT 10;
 
