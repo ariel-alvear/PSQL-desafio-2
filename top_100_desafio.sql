@@ -11,9 +11,9 @@ CREATE TABLE movies_table(
 \copy movies_table FROM 'peliculas.csv' csv HEADER; 
 
 CREATE TABLE casting_table(
-    id INT,
+    movies_id INT,
     actor VARCHAR(200),
-    FOREIGN KEY (id) REFERENCES movies_table(id)
+    FOREIGN KEY (movies_id) REFERENCES movies_table(id)
 );
 
 \copy casting_table FROM 'reparto.csv' csv;
@@ -22,12 +22,15 @@ CREATE TABLE casting_table(
 SELECT DISTINCT(actor), movie, movie_director, release_year
 FROM casting_table
 INNER JOIN movies_table
-ON casting_table.id=movies_table.id
+ON casting_table.movies_id=movies_table.id
 WHERE movie='Titanic';
 
 -- listamos todas las peliculas de Harrison Ford
-SELECT * FROM movies_table INNER JOIN casting_table on
-movies_table.id=casting_table.id WHERE actor='Harrison Ford';
+SELECT DISTINCT(actor), movie
+FROM casting_table
+INNER JOIN movies_table
+ON casting_table.movies_id=movies_table.id
+WHERE actor='Harrison Ford';
 
 -- listamos a los directores y cuántas películas tienen en el ranking, los ordenamos de mayor cantidad a menor, y dejamos solo 10.
 SELECT movie_director, count(*)
@@ -44,11 +47,11 @@ ORDER BY movie ASC;
 
 -- listar reparto de películas lanzadas el 2001
 SELECT actor FROM casting_table INNER JOIN movies_table on
-movies_table.id=casting_table.id WHERE release_year=2001;
+movies_table.id=casting_table.movies_id WHERE release_year=2001;
 
 -- listar actores de pelicula mas nueva
 SELECT actor FROM casting_table INNER JOIN movies_table on
-movies_table.id=casting_table.id WHERE release_year=(
+movies_table.id=casting_table.movies_id WHERE release_year=(
     SELECT MAX(release_year) 
     FROM movies_table
 );
