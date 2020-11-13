@@ -19,8 +19,11 @@ CREATE TABLE casting_table(
 \copy casting_table FROM 'reparto.csv' csv;
 
 -- listamos los actores de Titanic
-SELECT * FROM movies_table INNER JOIN casting_table on
-movies_table.id=casting_table.id WHERE movie='Titanic';
+SELECT DISTINCT(actor), movie, movie_director, release_year
+FROM casting_table
+INNER JOIN movies_table
+ON casting_table.id=movies_table.id
+WHERE movie='Titanic';
 
 -- listamos todas las peliculas de Harrison Ford
 SELECT * FROM movies_table INNER JOIN casting_table on
